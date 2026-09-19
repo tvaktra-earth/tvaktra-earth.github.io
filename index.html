@@ -3,10 +3,2669 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Website</title>
+
+  <meta
+    name="description"
+    content="Tvaktra — Natural beauty, skincare, haircare and wellness essentials."
+  >
+
+  <title>Tvaktra — Beauty, Skin, Hair & Wellness</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+
+    /* =========================
+       INLINE SEARCH
+    ========================= */
+
+    .search-wrapper {
+      display: flex;
+      align-items: center;
+    }
+
+    .search-trigger {
+      border: 0;
+      background: transparent;
+      font: inherit;
+      cursor: pointer;
+      padding: 8px 0;
+    }
+
+    .inline-search {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 300px;
+      height: 42px;
+    }
+
+    .inline-search-input-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      flex: 1;
+    }
+
+    .inline-search-input {
+      width: 100%;
+      height: 40px;
+      border: 1px solid #222;
+      border-radius: 0;
+      background: transparent;
+      padding: 0 38px 0 12px;
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+      box-sizing: border-box;
+    }
+
+    .inline-search-input:focus {
+      border-color: #111;
+    }
+
+    .search-clear {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      border: 0;
+      background: transparent;
+      font-size: 20px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 2px;
+    }
+
+    .search-submit {
+      width: 40px;
+      height: 40px;
+      border: 1px solid #222;
+      background: #222;
+      color: #fff;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .search-submit:hover {
+      opacity: 0.85;
+    }
+
+
+    /* =========================
+       SEARCH RESULTS
+    ========================= */
+
+    .no-search-results {
+      text-align: center;
+      padding: 80px 20px;
+    }
+
+    .no-search-results h3 {
+      margin-bottom: 10px;
+    }
+
+    .no-search-results p {
+      opacity: 0.65;
+    }
+
+
+    /* =========================
+       TOAST NOTIFICATION
+    ========================= */
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 30px;
+      transform: translateX(-50%) translateY(100px);
+
+      background: #222;
+      color: #fff;
+
+      padding: 14px 22px;
+
+      border-radius: 4px;
+
+      font-family: "DM Sans", sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+
+      z-index: 9999;
+
+      opacity: 0;
+
+      pointer-events: none;
+
+      transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+
+      white-space: nowrap;
+
+      box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================= */
+
+    @media (max-width: 768px) {
+
+      .inline-search {
+        width: 220px;
+      }
+
+      .toast {
+        bottom: 20px;
+        max-width: calc(100% - 40px);
+        white-space: normal;
+        text-align: center;
+      }
+
+    }
+
+
+    @media (max-width: 480px) {
+
+      .inline-search {
+        width: 180px;
+      }
+
+    }
+
+  </style>
+
 </head>
+
+
 <body>
-  <h1>Welcome to my website</h1>
-  <p>This site is hosted with GitHub Pages.</p>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="site-header">
+
+  <div class="announcement">
+    FREE SHIPPING ON ORDERS ABOVE ₹999
+  </div>
+
+
+  <nav class="nav container">
+
+
+    <!-- BRAND -->
+
+    <a
+      href="#"
+      class="brand"
+      aria-label="Tvaktra home"
+    >
+
+      <span class="brand-mark">
+        T
+      </span>
+
+      <span>
+        Tvaktra
+      </span>
+
+    </a>
+
+
+    <!-- NAVIGATION -->
+
+    <div class="nav-links">
+
+      <a href="#shop">
+        Shop
+      </a>
+
+      <a href="#categories">
+        Categories
+      </a>
+
+      <a href="#about">
+        About
+      </a>
+
+      <a href="#contact">
+        Contact
+      </a>
+
+    </div>
+
+
+    <!-- NAV ACTIONS -->
+
+    <div class="nav-actions">
+
+
+      <!-- SEARCH -->
+
+      <div
+        class="search-wrapper"
+        id="searchWrapper"
+      >
+
+        <button
+          type="button"
+          class="search-trigger"
+          aria-label="Open search"
+          onclick="activateSearch()"
+        >
+          Search
+        </button>
+
+      </div>
+
+
+      <!-- ACCOUNT -->
+
+      <button
+        type="button"
+        aria-label="Account"
+        onclick="showComingSoon('Account feature is coming soon.')"
+      >
+        Account
+      </button>
+
+
+      <!-- BAG -->
+
+      <button
+        type="button"
+        aria-label="Shopping bag"
+        onclick="showComingSoon('Shopping bag feature is coming soon.')"
+      >
+        Bag
+        <span class="bag-count">0</span>
+      </button>
+
+
+    </div>
+
+  </nav>
+
+</header>
+
+
+<main>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+
+  <div class="hero-image">
+
+    <img
+      src="hero-image.png"
+      alt="Tvaktra natural beauty collection"
+    >
+
+  </div>
+
+
+  <div class="hero-content">
+
+
+    <p class="eyebrow">
+      EVERYDAY BEAUTY, ELEVATED
+    </p>
+
+
+    <h1>
+      Nature's Intelligence
+    </h1>
+
+
+    <h2>
+      <em>
+        All you have to do, surrender to nature.
+      </em>
+    </h2>
+
+
+    <p class="hero-copy">
+
+      Discover thoughtfully made skin, hair, beauty and
+      wellness essentials inspired by nature and created
+      for everyday rituals.
+
+    </p>
+
+
+    <a
+      class="btn btn-dark"
+      href="#shop"
+    >
+      SHOP COLLECTION
+      <span>→</span>
+    </a>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================
+     CATEGORIES
+========================= -->
+
+<section
+  id="categories"
+  class="categories container"
+>
+
+
+  <div class="section-heading">
+
+
+    <div>
+
+      <p class="eyebrow">
+        EXPLORE
+      </p>
+
+      <h2>
+        Beauty, made simple.
+      </h2>
+
+    </div>
+
+
+    <p>
+
+      Skin, hair, beauty and wellness products created
+      with a nature-first philosophy.
+
+    </p>
+
+
+  </div>
+
+
+
+  <div class="category-grid">
+
+
+    <a
+      href="#shop"
+      class="category-card skincare"
+    >
+
+      <span>
+        01
+      </span>
+
+      <h3>
+        Skin Care
+      </h3>
+
+      <small>
+        Nourish · Care · Glow
+      </small>
+
+    </a>
+
+
+
+    <a
+      href="#shop"
+      class="category-card makeup"
+    >
+
+      <span>
+        02
+      </span>
+
+      <h3>
+        Hair Care
+      </h3>
+
+      <small>
+        Nourish · Strengthen · Care
+      </small>
+
+    </a>
+
+
+
+    <a
+      href="#shop"
+      class="category-card fragrance"
+    >
+
+      <span>
+        03
+      </span>
+
+      <h3>
+        Wellness
+      </h3>
+
+      <small>
+        Balance · Calm · Restore
+      </small>
+
+    </a>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================
+     PRODUCTS
+========================= -->
+
+<section
+  id="shop"
+  class="products container"
+>
+
+
+  <div class="section-heading">
+
+
+    <div>
+
+      <p class="eyebrow">
+        OUR COLLECTION
+      </p>
+
+      <h2>
+        Nature's care for everyday life.
+      </h2>
+
+    </div>
+
+
+    <button
+      type="button"
+      class="text-link"
+      onclick="viewAllProducts()"
+    >
+      VIEW ALL →
+    </button>
+
+
+  </div>
+
+
+
+  <div class="product-grid">
+
+
+    <!-- =========================
+         TVAKTRA PRODUCTS
+    ========================= -->
+
+
+    <!-- 01 -->
+
+    <article
+      class="product-card"
+      data-product="Skin Amrit"
+      data-price="999"
+    >
+
+      <div class="product-image p1">
+
+        <span>
+          FEATURED
+        </span>
+
+      </div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Skin Amrit
+        </h3>
+
+        <p>
+          Simply Amrit for the skin. Designed for everyday
+          skin care and to help manage concerns such as
+          small rashes, psoriasis and vitiligo.
+        </p>
+
+        <strong>
+          ₹999
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 02 -->
+
+    <article
+      class="product-card"
+      data-product="P-Versi"
+      data-price="799"
+    >
+
+      <div class="product-image p2"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          P-Versi
+        </h3>
+
+        <p>
+          Helps manage fungal skin concerns, including
+          Versicolor-type conditions and small rashes.
+        </p>
+
+        <strong>
+          ₹799
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 03 -->
+
+    <article
+      class="product-card"
+      data-product="Relief +"
+      data-price="699"
+    >
+
+      <div class="product-image p3"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Relief +
+        </h3>
+
+        <p>
+          A nourishing pain-relief oil created to provide
+          soothing care while nourishing the skin.
+        </p>
+
+        <strong>
+          ₹699
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 04 -->
+
+    <article
+      class="product-card"
+      data-product="Kesh Janani"
+      data-price="899"
+    >
+
+      <div class="product-image p4">
+
+        <span>
+          FEATURED
+        </span>
+
+      </div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Kesh Janani
+        </h3>
+
+        <p>
+          Hair and scalp care designed to help manage
+          hair loss associated with alopecia.
+        </p>
+
+        <strong>
+          ₹899
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 05 -->
+
+    <article
+      class="product-card"
+      data-product="Kesh Ranjani"
+      data-price="799"
+    >
+
+      <div class="product-image p5"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Kesh Ranjani
+        </h3>
+
+        <p>
+          Provides natural-looking colour pigments while
+          nourishing and caring for the hair.
+        </p>
+
+        <strong>
+          ₹799
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 06 -->
+
+    <article
+      class="product-card"
+      data-product="Keshya"
+      data-price="699"
+    >
+
+      <div class="product-image p6"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Keshya
+        </h3>
+
+        <p>
+          Everyday hair-care nourishment designed to keep
+          hair healthy, soft and cared for.
+        </p>
+
+        <strong>
+          ₹699
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 07 -->
+
+    <article
+      class="product-card"
+      data-product="Sleepy Sleepy"
+      data-price="699"
+    >
+
+      <div class="product-image p7"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Sleepy Sleepy
+        </h3>
+
+        <p>
+          A calming wellness formulation created to support
+          relaxation and help you sleep well.
+        </p>
+
+        <strong>
+          ₹699
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 08 -->
+
+    <article
+      class="product-card"
+      data-product="Pimple Care"
+      data-price="599"
+    >
+
+      <div class="product-image p8"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Pimple Care
+        </h3>
+
+        <p>
+          Targeted skin care designed to help manage
+          pimples and acne while supporting clearer-looking skin.
+        </p>
+
+        <strong>
+          ₹599
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 09 -->
+
+    <article
+      class="product-card"
+      data-product="Eyebrow Oil"
+      data-price="499"
+    >
+
+      <div class="product-image p9"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Eyebrow Oil
+        </h3>
+
+        <p>
+          Nourishing eyebrow care designed to support
+          beautiful, well-conditioned eyebrows.
+        </p>
+
+        <strong>
+          ₹499
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 10 -->
+
+    <article
+      class="product-card"
+      data-product="Viticare Nutrition"
+      data-price="999"
+    >
+
+      <div class="product-image p10"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Viticare Nutrition
+        </h3>
+
+        <p>
+          Nutritional support formulated to help manage
+          vitiligo as part of a broader care routine.
+        </p>
+
+        <strong>
+          ₹999
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 11 -->
+
+    <article
+      class="product-card"
+      data-product="Face Elixir"
+      data-price="899"
+    >
+
+      <div class="product-image p11"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Face Elixir
+        </h3>
+
+        <p>
+          An elixir for facial skin that provides nourishing
+          and luxurious everyday skin care.
+        </p>
+
+        <strong>
+          ₹899
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 12 -->
+
+    <article
+      class="product-card"
+      data-product="Vari-Flow"
+      data-price="899"
+    >
+
+      <div class="product-image p12"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Vari-Flow
+        </h3>
+
+        <p>
+          Designed to help manage and ease symptoms associated
+          with varicose veins.
+        </p>
+
+        <strong>
+          ₹899
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 13 -->
+
+    <article
+      class="product-card"
+      data-product="Handmade Natural Soaps"
+      data-price="349"
+    >
+
+      <div class="product-image p13"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Handmade Natural Soaps
+        </h3>
+
+        <p>
+          Made naturally by allowing oils to saponify on their
+          own. Each soap takes around 90 days to become a soap
+          from oil — nature's own process, finished with our
+          potion of love and care.
+        </p>
+
+        <strong>
+          ₹349
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 14 -->
+
+    <article
+      class="product-card"
+      data-product="Handmade Handwash"
+      data-price="399"
+    >
+
+      <div class="product-image p14"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Handmade Handwash
+        </h3>
+
+        <p>
+          Handmade cleansing care inspired by the soap-making
+          process, combining natural ingredients with careful
+          hot processing.
+        </p>
+
+        <strong>
+          ₹399
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 15 -->
+
+    <article
+      class="product-card"
+      data-product="Brain Neurons n Nerves - BN3"
+      data-price="1199"
+    >
+
+      <div class="product-image p15"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Brain Neurons n Nerves — BN3
+        </h3>
+
+        <p>
+          A wellness formulation designed to promote calmness
+          and support a healthy environment for brain function.
+        </p>
+
+        <strong>
+          ₹1,199
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 16 -->
+
+    <article
+      class="product-card"
+      data-product="Vadana Manjari"
+      data-price="799"
+    >
+
+      <div class="product-image p16"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Vadana Manjari
+        </h3>
+
+        <p>
+          A nature-inspired facial care formulation designed
+          to cleanse and brighten the natural-looking facial aura.
+        </p>
+
+        <strong>
+          ₹799
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 17 -->
+
+    <article
+      class="product-card"
+      data-product="Hair Protein Pack"
+      data-price="899"
+    >
+
+      <div class="product-image p17"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Hair Protein Pack
+        </h3>
+
+        <p>
+          A protein-rich hair treatment designed to nourish
+          the hair and help reduce hair fall associated with
+          weakened or poorly nourished hair.
+        </p>
+
+        <strong>
+          ₹899
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 18 -->
+
+    <article
+      class="product-card"
+      data-product="Kesh Ranjani Powder"
+      data-price="699"
+    >
+
+      <div class="product-image p18"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Kesh Ranjani Powder
+        </h3>
+
+        <p>
+          A nature-inspired hair colour powder designed to
+          add colour to the hair while following a natural
+          approach to hair care.
+        </p>
+
+        <strong>
+          ₹699
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- =========================
+         EXISTING PRODUCTS
+    ========================= -->
+
+
+    <!-- 19 -->
+
+    <article
+      class="product-card"
+      data-product="Rose Glow Serum"
+      data-price="899"
+    >
+
+      <div class="product-image p19">
+
+        <span>
+          NEW
+        </span>
+
+      </div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Rose Glow Serum
+        </h3>
+
+        <p>
+          Brightening face serum
+        </p>
+
+        <strong>
+          ₹899
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 20 -->
+
+    <article
+      class="product-card"
+      data-product="Velvet Matte Lipstick"
+      data-price="599"
+    >
+
+      <div class="product-image p20"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Velvet Matte Lipstick
+        </h3>
+
+        <p>
+          Long-wear lipstick
+        </p>
+
+        <strong>
+          ₹599
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 21 -->
+
+    <article
+      class="product-card"
+      data-product="Cloud Skin Moisturizer"
+      data-price="749"
+    >
+
+      <div class="product-image p21"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Cloud Skin Moisturizer
+        </h3>
+
+        <p>
+          Hydrating daily cream
+        </p>
+
+        <strong>
+          ₹749
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 22 -->
+
+    <article
+      class="product-card"
+      data-product="Sun Kissed Blush"
+      data-price="649"
+    >
+
+      <div class="product-image p22">
+
+        <span>
+          BESTSELLER
+        </span>
+
+      </div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Sun Kissed Blush
+        </h3>
+
+        <p>
+          Soft powder blush
+        </p>
+
+        <strong>
+          ₹649
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 23 -->
+
+    <article
+      class="product-card"
+      data-product="Pure Glow Face Wash"
+      data-price="449"
+    >
+
+      <div class="product-image p23"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Pure Glow Face Wash
+        </h3>
+
+        <p>
+          Gentle daily cleanser
+        </p>
+
+        <strong>
+          ₹449
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 24 -->
+
+    <article
+      class="product-card"
+      data-product="Silk Touch Foundation"
+      data-price="999"
+    >
+
+      <div class="product-image p24"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Silk Touch Foundation
+        </h3>
+
+        <p>
+          Natural finish foundation
+        </p>
+
+        <strong>
+          ₹999
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 25 -->
+
+    <article
+      class="product-card"
+      data-product="Golden Hour Highlighter"
+      data-price="699"
+    >
+
+      <div class="product-image p25"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Golden Hour Highlighter
+        </h3>
+
+        <p>
+          Radiant powder highlighter
+        </p>
+
+        <strong>
+          ₹699
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 26 -->
+
+    <article
+      class="product-card"
+      data-product="Soft Cloud Compact"
+      data-price="699"
+    >
+
+      <div class="product-image p26"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Soft Cloud Compact
+        </h3>
+
+        <p>
+          Lightweight face powder
+        </p>
+
+        <strong>
+          ₹699
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 27 -->
+
+    <article
+      class="product-card"
+      data-product="Midnight Kajal"
+      data-price="399"
+    >
+
+      <div class="product-image p27"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Midnight Kajal
+        </h3>
+
+        <p>
+          Smudge-resistant kajal
+        </p>
+
+        <strong>
+          ₹399
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 28 -->
+
+    <article
+      class="product-card"
+      data-product="Lash Lift Mascara"
+      data-price="749"
+    >
+
+      <div class="product-image p28"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Lash Lift Mascara
+        </h3>
+
+        <p>
+          Lengthening mascara
+        </p>
+
+        <strong>
+          ₹749
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 29 -->
+
+    <article
+      class="product-card"
+      data-product="Nude Muse Lip Gloss"
+      data-price="549"
+    >
+
+      <div class="product-image p29"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Nude Muse Lip Gloss
+        </h3>
+
+        <p>
+          Glass-shine lip gloss
+        </p>
+
+        <strong>
+          ₹549
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 30 -->
+
+    <article
+      class="product-card"
+      data-product="Peach Petal Tint"
+      data-price="599"
+    >
+
+      <div class="product-image p30"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Peach Petal Tint
+        </h3>
+
+        <p>
+          Lip & cheek tint
+        </p>
+
+        <strong>
+          ₹599
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 31 -->
+
+    <article
+      class="product-card"
+      data-product="Vitamin C Booster"
+      data-price="949"
+    >
+
+      <div class="product-image p31"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Vitamin C Booster
+        </h3>
+
+        <p>
+          Radiance treatment
+        </p>
+
+        <strong>
+          ₹949
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 32 -->
+
+    <article
+      class="product-card"
+      data-product="Hydra Mist Toner"
+      data-price="499"
+    >
+
+      <div class="product-image p32"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Hydra Mist Toner
+        </h3>
+
+        <p>
+          Refreshing facial mist
+        </p>
+
+        <strong>
+          ₹499
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 33 -->
+
+    <article
+      class="product-card"
+      data-product="Barrier Care Cream"
+      data-price="799"
+    >
+
+      <div class="product-image p33"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Barrier Care Cream
+        </h3>
+
+        <p>
+          Calming barrier cream
+        </p>
+
+        <strong>
+          ₹799
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 34 -->
+
+    <article
+      class="product-card"
+      data-product="Clean Slate Cleansing Balm"
+      data-price="849"
+    >
+
+      <div class="product-image p34"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Clean Slate Cleansing Balm
+        </h3>
+
+        <p>
+          Makeup melting balm
+        </p>
+
+        <strong>
+          ₹849
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 35 -->
+
+    <article
+      class="product-card"
+      data-product="Botanical Hair Oil"
+      data-price="699"
+    >
+
+      <div class="product-image p35"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Botanical Hair Oil
+        </h3>
+
+        <p>
+          Nourishing scalp oil
+        </p>
+
+        <strong>
+          ₹699
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 36 -->
+
+    <article
+      class="product-card"
+      data-product="Silk Repair Hair Mask"
+      data-price="799"
+    >
+
+      <div class="product-image p36"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Silk Repair Hair Mask
+        </h3>
+
+        <p>
+          Deep conditioning mask
+        </p>
+
+        <strong>
+          ₹799
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 37 -->
+
+    <article
+      class="product-card"
+      data-product="Amber Bloom Eau de Parfum"
+      data-price="1499"
+    >
+
+      <div class="product-image p37"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Amber Bloom Eau de Parfum
+        </h3>
+
+        <p>
+          Warm floral fragrance
+        </p>
+
+        <strong>
+          ₹1,499
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 38 -->
+
+    <article
+      class="product-card"
+      data-product="Fresh Linen Body Mist"
+      data-price="799"
+    >
+
+      <div class="product-image p38"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Fresh Linen Body Mist
+        </h3>
+
+        <p>
+          Clean everyday mist
+        </p>
+
+        <strong>
+          ₹799
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 39 -->
+
+    <article
+      class="product-card"
+      data-product="Rose Petal Body Lotion"
+      data-price="549"
+    >
+
+      <div class="product-image p39"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Rose Petal Body Lotion
+        </h3>
+
+        <p>
+          Silky body moisturizer
+        </p>
+
+        <strong>
+          ₹549
+        </strong>
+
+      </div>
+
+    </article>
+
+
+
+    <!-- 40 -->
+
+    <article
+      class="product-card"
+      data-product="Berry Kiss Lip Balm"
+      data-price="349"
+    >
+
+      <div class="product-image p40"></div>
+
+
+      <div class="product-info">
+
+        <h3>
+          Berry Kiss Lip Balm
+        </h3>
+
+        <p>
+          Tinted nourishing balm
+        </p>
+
+        <strong>
+          ₹349
+        </strong>
+
+      </div>
+
+    </article>
+
+
+  </div>
+
+
+  <!-- NO SEARCH RESULTS -->
+
+  <div
+    id="noSearchResults"
+    class="no-search-results"
+    style="display: none;"
+  >
+
+    <h3>
+      No products found
+    </h3>
+
+    <p>
+      Try searching for another product name or category.
+    </p>
+
+  </div>
+
+
+</section>
+
+
+
+<!-- =========================
+     ABOUT
+========================= -->
+
+<section
+  id="about"
+  class="editorial"
+>
+
+
+  <div class="editorial-image"></div>
+
+
+  <div class="editorial-copy">
+
+
+    <p class="eyebrow">
+      OUR PHILOSOPHY
+    </p>
+
+
+    <h2>
+
+      Good skin.
+      <br>
+
+      <em>
+        Good mood.
+      </em>
+
+    </h2>
+
+
+    <p>
+
+      We believe nature has its own intelligence.
+      Our collection brings together skin care, hair care,
+      beauty and wellness essentials with a nature-first
+      approach.
+
+    </p>
+
+
+    <p>
+
+      From handmade soaps that take around 90 days to
+      naturally saponify, to carefully crafted hair and
+      skin formulations, every product is created with
+      patience, care and love.
+
+    </p>
+
+
+    <a
+      href="#contact"
+      class="text-link"
+    >
+      DISCOVER OUR STORY →
+    </a>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =========================
+     NEWSLETTER
+========================= -->
+
+<section
+  class="newsletter container"
+  id="contact"
+>
+
+
+  <p class="eyebrow">
+    STAY IN THE GLOW
+  </p>
+
+
+  <h2>
+    Beauty notes, new drops & offers.
+  </h2>
+
+
+  <form
+    class="newsletter-form"
+    onsubmit="subscribeNewsletter(event)"
+  >
+
+    <input
+      type="email"
+      id="newsletterEmail"
+      placeholder="Your email address"
+      aria-label="Email address"
+      required
+    >
+
+
+    <button
+      type="submit"
+      class="btn btn-dark"
+    >
+      SUBSCRIBE →
+    </button>
+
+
+  </form>
+
+
+</section>
+
+
+</main>
+
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer>
+
+
+  <div class="container footer-grid">
+
+
+    <div>
+
+      <a
+        class="brand footer-brand"
+        href="#"
+      >
+
+        <span class="brand-mark">
+          T
+        </span>
+
+        <span>
+          Tvaktra
+        </span>
+
+      </a>
+
+
+      <p>
+        Natural beauty, skin, hair and wellness essentials
+        for everyday rituals.
+      </p>
+
+    </div>
+
+
+
+    <div>
+
+      <h4>
+        SHOP
+      </h4>
+
+
+      <a href="#shop">
+        Skin Care
+      </a>
+
+
+      <a href="#shop">
+        Hair Care
+      </a>
+
+
+      <a href="#shop">
+        Beauty
+      </a>
+
+
+      <a href="#shop">
+        Wellness
+      </a>
+
+    </div>
+
+
+
+    <div>
+
+      <h4>
+        HELP
+      </h4>
+
+
+      <a
+        href="#"
+        onclick="showComingSoon('Shipping information is coming soon.'); return false;"
+      >
+        Shipping
+      </a>
+
+
+      <a
+        href="#"
+        onclick="showComingSoon('Returns information is coming soon.'); return false;"
+      >
+        Returns
+      </a>
+
+
+      <a
+        href="#"
+        onclick="showComingSoon('FAQs are coming soon.'); return false;"
+      >
+        FAQs
+      </a>
+
+    </div>
+
+
+
+    <div>
+
+      <h4>
+        FOLLOW
+      </h4>
+
+
+      <a href="#">
+        Instagram
+      </a>
+
+
+      <a href="#">
+        Pinterest
+      </a>
+
+
+      <a href="#">
+        Facebook
+      </a>
+
+    </div>
+
+
+  </div>
+
+
+  <div class="copyright container">
+
+    © 2026 Tvaktra.earth. All rights reserved.
+
+  </div>
+
+
+</footer>
+
+
+
+<!-- =========================
+     TOAST
+========================= -->
+
+<div
+  id="toast"
+  class="toast"
+  role="status"
+  aria-live="polite"
+>
+</div>
+
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+
+  /* =========================
+     PRODUCT CARDS
+  ========================= */
+
+  const productCards =
+    document.querySelectorAll('.product-card');
+
+
+
+  /* =========================
+     BAG COUNTER
+  ========================= */
+
+  const bagCounters =
+    document.querySelectorAll('.bag-count');
+
+  let count = 0;
+
+
+  productCards.forEach(card => {
+
+    card.addEventListener('click', () => {
+
+      count++;
+
+      updateBagCount();
+
+    });
+
+  });
+
+
+  function updateBagCount() {
+
+    bagCounters.forEach(counter => {
+
+      counter.textContent = count;
+
+    });
+
+  }
+
+
+
+  /* =========================
+     COMING SOON TOAST
+  ========================= */
+
+  let toastTimer;
+
+
+  function showComingSoon(message) {
+
+    const toast =
+      document.getElementById('toast');
+
+
+    toast.textContent = message;
+
+
+    /* Reset existing animation */
+
+    toast.classList.remove('show');
+
+
+    clearTimeout(toastTimer);
+
+
+    /* Force browser reflow */
+
+    void toast.offsetWidth;
+
+
+    /* Show toast */
+
+    toast.classList.add('show');
+
+
+    /* Automatically hide */
+
+    toastTimer = setTimeout(() => {
+
+      toast.classList.remove('show');
+
+    }, 3000);
+
+  }
+
+
+
+  /* =========================
+     INLINE SEARCH
+  ========================= */
+
+  const searchWrapper =
+    document.getElementById('searchWrapper');
+
+
+  const noSearchResults =
+    document.getElementById('noSearchResults');
+
+
+  function activateSearch() {
+
+    searchWrapper.innerHTML = `
+
+      <div class="inline-search">
+
+        <div class="inline-search-input-wrap">
+
+          <input
+            type="text"
+            id="inlineSearchInput"
+            class="inline-search-input"
+            placeholder="Search products..."
+            autocomplete="off"
+            aria-label="Search products"
+          >
+
+          <button
+            type="button"
+            class="search-clear"
+            aria-label="Close search"
+            onclick="closeInlineSearch()"
+          >
+            ×
+          </button>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="search-submit"
+          aria-label="Submit search"
+          onclick="submitSearch()"
+        >
+          🔍
+        </button>
+
+      </div>
+
+    `;
+
+
+    const input =
+      document.getElementById(
+        'inlineSearchInput'
+      );
+
+
+    input.focus();
+
+
+    /* ENTER TO SEARCH */
+
+    input.addEventListener(
+      'keydown',
+      function(event) {
+
+        if (event.key === 'Enter') {
+
+          event.preventDefault();
+
+          submitSearch();
+
+        }
+
+      }
+    );
+
+  }
+
+
+
+  function closeInlineSearch() {
+
+    searchWrapper.innerHTML = `
+
+      <button
+        type="button"
+        class="search-trigger"
+        aria-label="Open search"
+        onclick="activateSearch()"
+      >
+        Search
+      </button>
+
+    `;
+
+
+    /* Restore all products */
+
+    productCards.forEach(card => {
+
+      card.style.display = '';
+
+    });
+
+
+    noSearchResults.style.display = 'none';
+
+  }
+
+
+
+  function submitSearch() {
+
+    const input =
+      document.getElementById(
+        'inlineSearchInput'
+      );
+
+
+    if (!input) {
+
+      return;
+
+    }
+
+
+    const searchValue =
+      input.value
+        .toLowerCase()
+        .trim();
+
+
+    /* EMPTY SEARCH */
+
+    if (!searchValue) {
+
+      productCards.forEach(card => {
+
+        card.style.display = '';
+
+      });
+
+
+      noSearchResults.style.display = 'none';
+
+      return;
+
+    }
+
+
+    let foundProducts = 0;
+
+
+    /* SEARCH THROUGH ALL PRODUCTS */
+
+    productCards.forEach(card => {
+
+      const productName =
+        card
+          .querySelector('h3')
+          .textContent
+          .toLowerCase();
+
+
+      const productDescription =
+        card
+          .querySelector('p')
+          .textContent
+          .toLowerCase();
+
+
+      const searchableText =
+        productName +
+        ' ' +
+        productDescription;
+
+
+      if (
+        searchableText.includes(searchValue)
+      ) {
+
+        card.style.display = '';
+
+        foundProducts++;
+
+      } else {
+
+        card.style.display = 'none';
+
+      }
+
+    });
+
+
+    /* NO PRODUCTS */
+
+    if (foundProducts === 0) {
+
+      noSearchResults.style.display = 'block';
+
+    }
+
+
+    /* PRODUCTS FOUND */
+
+    else {
+
+      noSearchResults.style.display = 'none';
+
+
+      document
+        .getElementById('shop')
+        .scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+
+    }
+
+  }
+
+
+
+  /* =========================
+     VIEW ALL PRODUCTS
+  ========================= */
+
+  function viewAllProducts() {
+
+
+    const searchInput =
+      document.getElementById(
+        'inlineSearchInput'
+      );
+
+
+    if (searchInput) {
+
+      closeInlineSearch();
+
+    }
+
+
+    document
+      .querySelector('.product-grid')
+      .scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+
+  }
+
+
+
+  /* =========================
+     NEWSLETTER
+  ========================= */
+
+  function subscribeNewsletter(event) {
+
+    event.preventDefault();
+
+
+    const email =
+      document
+        .getElementById(
+          'newsletterEmail'
+        )
+        .value
+        .trim();
+
+
+    if (!email) {
+
+      showComingSoon(
+        'Please enter your email address.'
+      );
+
+      return;
+
+    }
+
+
+    showComingSoon(
+      'Thank you! You are now subscribed to Tvaktra updates.'
+    );
+
+
+    document
+      .getElementById(
+        'newsletterEmail'
+      )
+      .value = '';
+
+  }
+
+
+
+  /* =========================
+     ESC KEY
+  ========================= */
+
+  document.addEventListener(
+    'keydown',
+    function(event) {
+
+      if (event.key === 'Escape') {
+
+
+        const searchInput =
+          document.getElementById(
+            'inlineSearchInput'
+          );
+
+
+        if (searchInput) {
+
+          closeInlineSearch();
+
+        }
+
+
+        const toast =
+          document.getElementById('toast');
+
+
+        toast.classList.remove('show');
+
+      }
+
+    }
+  );
+
+  /* =========================================
+   PRODUCT CLICK DIALOG
+   Only adds dialog functionality
+========================================= */
+
+document.querySelectorAll(".product-card").forEach(function(card) {
+
+  card.addEventListener("click", function() {
+
+    const name = card.dataset.name || 
+                 card.querySelector("h3")?.textContent || 
+                 "Product";
+
+    const description = card.dataset.description || 
+                        card.querySelector("p")?.textContent || 
+                        "";
+
+    const price = card.dataset.price || 
+                  card.querySelector(".price")?.textContent || 
+                  "";
+
+    const category = card.dataset.category || 
+                     "Beauty";
+
+    document.getElementById("dialogProductName").textContent = name;
+
+    document.getElementById("dialogProductDescription").textContent =
+      description;
+
+    document.getElementById("dialogProductPrice").textContent =
+      price.toString().startsWith("₹") ? price : "₹" + price;
+
+    document.getElementById("dialogCategory").textContent =
+      category;
+
+    document
+      .getElementById("productDialogOverlay")
+      .classList.add("show");
+
+    document.body.style.overflow = "hidden";
+  });
+
+});
+
+
+function closeProductDialog() {
+
+  document
+    .getElementById("productDialogOverlay")
+    .classList.remove("show");
+
+  document.body.style.overflow = "";
+}
+
+
+function closeProductDialogOutside(event) {
+
+  if (
+    event.target ===
+    document.getElementById("productDialogOverlay")
+  ) {
+    closeProductDialog();
+  }
+
+}
+
+
+document.addEventListener("keydown", function(event) {
+
+  if (event.key === "Escape") {
+    closeProductDialog();
+  }
+
+});
+
+
+</script>
+
+<!-- Product Dialog -->
+<div
+  id="productDialogOverlay"
+  class="product-dialog-overlay"
+  onclick="closeProductDialogOutside(event)"
+>
+  <div class="product-dialog">
+
+    <button
+      class="product-dialog-close"
+      onclick="closeProductDialog()"
+      aria-label="Close"
+    >
+      ×
+    </button>
+
+    <div
+      id="dialogCategory"
+      class="product-dialog-category"
+    ></div>
+
+    <h2 id="dialogProductName"></h2>
+
+    <p id="dialogProductDescription"></p>
+
+    <div
+      id="dialogProductPrice"
+      class="product-dialog-price"
+    ></div>
+
+  </div>
+</div>
+
 </body>
 </html>
